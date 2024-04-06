@@ -1,6 +1,7 @@
 package edu.uga.cs.countryquiz;
 
 public class Country {
+    public final String TAG = "Country";
     private long id;
     private String country;
     private String continent;
@@ -40,4 +41,6 @@ public class Country {
     public String getContinent() {
         return continent;
     }
+
+
 }
