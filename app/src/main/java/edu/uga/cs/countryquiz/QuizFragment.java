@@ -113,7 +113,7 @@ public class QuizFragment extends Fragment {
 
             ArrayList<String> incorrectAnswers = new ArrayList<>();
             for (String answer : possibleAnswers) {
-                if (!answer.equals(correctAnswer) && incorrectAnswers.size() < 3) {
+                if (!answer.equals(correctAnswer) && incorrectAnswers.size() < 2) {
                     incorrectAnswers.add(answer); // Add incorrect answer until we have 2
                 }
             }

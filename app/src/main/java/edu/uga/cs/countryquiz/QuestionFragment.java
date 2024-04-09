@@ -45,17 +45,18 @@ public class QuestionFragment extends Fragment {
         RadioGroup answersGroup = view.findViewById(R.id.answersGroup);
 
         questionText.setText("What continent is " + question.getCountry() + " located in?");
-
+        int j = 1;
         // Dynamically add radio buttons for each answer
         for (String answer : question.getAnswers()) {
             RadioButton radioButton = new RadioButton(getContext());
-            radioButton.setText(answer);
+            radioButton.setText(String.format("%d. %s",j,answer));
             answersGroup.addView(radioButton);
+            j++;
         }
 
         answersGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton selectedRadioButton = group.findViewById(checkedId);
-            if (selectedRadioButton.getText().toString().equals(question.getCorrectAnswer())) {
+            if (selectedRadioButton.getText().toString().substring(3).equals(question.getCorrectAnswer())) {
                 quizViewModel.incrementScore();
             }
             for (int i = 0; i < group.getChildCount(); i++) {
