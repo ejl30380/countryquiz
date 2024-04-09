@@ -1,5 +1,7 @@
 package edu.uga.cs.countryquiz;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +52,12 @@ public class Quiz implements Serializable {
         return id;
     }
 
+    public long getLongDate(){
+        return this.date;
+    }
+
     public String getDate() {
+        Log.i("Quiz", String.format("%d",this.date));
         return new Date(this.date).toString();
     }
 

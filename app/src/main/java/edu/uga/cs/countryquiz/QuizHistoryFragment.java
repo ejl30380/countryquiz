@@ -1,5 +1,6 @@
 package edu.uga.cs.countryquiz;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,12 +34,32 @@ public class QuizHistoryFragment extends Fragment {
     }
 
     private void loadQuizHistory() {
-        QuizData quizData = new QuizData(getContext());
-        quizData.open();
-        ArrayList<Quiz> quizzes = quizData.retrieveAllQuiz();
-        quizData.close();
+        new RetrieveQuizTask(getContext()).execute();
+    }
 
-        QuizHistoryAdapter adapter = new QuizHistoryAdapter(quizzes);
-        quizHistoryRecyclerView.setAdapter(adapter);
+    public class RetrieveQuizTask extends AsyncTask<Void, ArrayList<Quiz>> {
+        private Context context; // For database access
+
+        public RetrieveQuizTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected ArrayList<Quiz> doInBackground(Void... voids) {
+            QuizData quizData = new QuizData(context);
+            quizData.open();
+            ArrayList<Quiz> quizzes = quizData.retrieveAllQuiz(); // Fetch quizzes
+            quizData.close();
+            return quizzes; // Return the fetched quizzes
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Quiz> quizzes) {
+            // Update the RecyclerView with the fetched quizzes
+            if (quizzes != null) {
+                QuizHistoryAdapter adapter = new QuizHistoryAdapter(quizzes);
+                quizHistoryRecyclerView.setAdapter(adapter);
+            }
+        }
     }
 }

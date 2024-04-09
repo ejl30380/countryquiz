@@ -30,7 +30,7 @@ public class QuizData {
     }
     public Quiz storeQuiz( Quiz quiz ) {
         ContentValues values = new ContentValues();
-        values.put( QuizDBHelper.QUIZZES_COLUMN_DATE, quiz.getDate());
+        values.put( QuizDBHelper.QUIZZES_COLUMN_DATE, quiz.getLongDate());
         values.put( QuizDBHelper.QUIZZES_COLUMN_RESULT, quiz.getResult() );
 
         // Insert the new row into the database table; the id (primary key) will be
@@ -68,6 +68,7 @@ public class QuizData {
                         int result = cursor.getInt(columnIndex);
 
                         // create a new JobLead object and set its state to the retrieved values
+                        Log.i(TAG,"" + id + date + result);
                         Quiz quiz = new Quiz(date, result);
                         quiz.setId(id); // set the id (the primary key) of this object
                         // add it to the list

@@ -1,5 +1,6 @@
 package edu.uga.cs.countryquiz;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,9 @@ public class QuizHistoryAdapter extends RecyclerView.Adapter<QuizHistoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Quiz quiz = quizList.get(position);
+        Log.i("QuizHistAdaptor", quiz.getDate());
         holder.quizDateTextView.setText(quiz.getDate()); // Format this date as needed
-        holder.quizResultTextView.setText(String.valueOf(quiz.getResult()) + "%");
+        holder.quizResultTextView.setText(String.valueOf(quiz.getResult()) + "/6 Correct");
     }
 
     @Override

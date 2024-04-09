@@ -6,7 +6,7 @@ import java.util.Collections;
 
 public class Question implements Serializable {
     public static final String TAG = "Question";
-    public static final String[] CONTINENTS = {"Africa","Antarctica", "Asia", "Europe", "North America", "Oceania", "South America"};
+    public static final String[] CONTINENTS = {"Africa", "Asia", "Europe", "North America", "Oceania", "South America"};
     private String country;
     private String correctAnswer;
     private ArrayList<String> incorrectAnswers = new ArrayList<String>(2);
