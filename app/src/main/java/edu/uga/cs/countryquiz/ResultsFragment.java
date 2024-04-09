@@ -74,8 +74,6 @@ public class ResultsFragment extends Fragment {
     }
 
     private void retakeQuiz() {
-        // Logic to start a new quiz. Could involve navigating back to the QuizFragment or resetting the quiz state.
-        // Example: Navigate back to the QuizFragment
         NavHostFragment.findNavController(ResultsFragment.this)
                 .navigate(R.id.action_resultsFragment_to_quizFragment);
     }

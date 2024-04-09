@@ -9,7 +9,7 @@ public class CountryDBHelper extends SQLiteOpenHelper{
 
     private static final String DEBUG_TAG = "CountryDBHelper";
 
-    private static final String DB_NAME = "countries.db";
+    private static final String DB_NAME = "countryquiz.db";
     private static final int DB_VERSION = 1;
 
     // Define all names (strings) for table and column names.
@@ -18,6 +18,11 @@ public class CountryDBHelper extends SQLiteOpenHelper{
     public static final String COUNTRIES_COLUMN_ID = "_id";
     public static final String COUNTRIES_COLUMN_COUNTRY = "country";
     public static final String COUNTRIES_COLUMN_CONTINENT = "continent";
+
+    public static final String TABLE_QUIZZES = "quizzes";
+    public static final String QUIZZES_COLUMN_ID = "_id";
+    public static final String QUIZZES_COLUMN_DATE = "date";
+    public static final String QUIZZES_COLUMN_RESULT = "result";
 
     // This is a reference to the only instance for the helper.
     private static CountryDBHelper helperInstance;
@@ -31,6 +36,14 @@ public class CountryDBHelper extends SQLiteOpenHelper{
                     + COUNTRIES_COLUMN_COUNTRY + " TEXT, "
                     + COUNTRIES_COLUMN_CONTINENT + " TEXT "
                     + ")";
+
+    private static final String CREATE_QUIZZES =
+            "create table " + TABLE_QUIZZES + " ("
+                    + QUIZZES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + QUIZZES_COLUMN_DATE + " BIGINT, "
+                    + QUIZZES_COLUMN_RESULT + " INT "
+                    + ")";
+
 
     // Note that the constructor is private!
     // So, it can be called only from
@@ -54,6 +67,8 @@ public class CountryDBHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate( SQLiteDatabase db ) {
         db.execSQL( CREATE_COUNTRIES );
+        db.execSQL( CREATE_QUIZZES );
+        Log.d( DEBUG_TAG, "Table " + TABLE_QUIZZES + " created" );
         Log.d( DEBUG_TAG, "Table " + TABLE_COUNTRIES + " created" );
     }
 

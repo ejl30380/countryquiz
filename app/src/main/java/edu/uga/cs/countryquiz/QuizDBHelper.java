@@ -7,11 +7,16 @@ import android.util.Log;
 
 public class QuizDBHelper extends SQLiteOpenHelper {
     private static final String DEBUG_TAG = "QuizzesDBHelper";
-    private static final String DB_NAME = "quizzes.db";
+    private static final String DB_NAME = "countryquiz.db";
     private static final int DB_VERSION = 1;
 
     // Define all names (strings) for table and column names.
     // This will be useful if we want to change these names later.
+    public static final String TABLE_COUNTRIES = "countries";
+    public static final String COUNTRIES_COLUMN_ID = "_id";
+    public static final String COUNTRIES_COLUMN_COUNTRY = "country";
+    public static final String COUNTRIES_COLUMN_CONTINENT = "continent";
+
     public static final String TABLE_QUIZZES = "quizzes";
     public static final String QUIZZES_COLUMN_ID = "_id";
     public static final String QUIZZES_COLUMN_DATE = "date";
@@ -23,6 +28,12 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     // A Create table SQL statement to create a table for job leads.
     // Note that _id is an auto increment primary key, i.e. the database will
     // automatically generate unique id values as keys.
+    private static final String CREATE_COUNTRIES =
+            "create table " + TABLE_COUNTRIES + " ("
+                    + COUNTRIES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + COUNTRIES_COLUMN_COUNTRY + " TEXT, "
+                    + COUNTRIES_COLUMN_CONTINENT + " TEXT "
+                    + ")";
     private static final String CREATE_QUIZZES =
             "create table " + TABLE_QUIZZES + " ("
                     + QUIZZES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -51,8 +62,10 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     // it does not exist yet.
     @Override
     public void onCreate( SQLiteDatabase db ) {
+        db.execSQL( CREATE_COUNTRIES );
         db.execSQL( CREATE_QUIZZES );
         Log.d( DEBUG_TAG, "Table " + TABLE_QUIZZES + " created" );
+        Log.d( DEBUG_TAG, "Table " + TABLE_COUNTRIES + " created" );
     }
 
     // We should override onUpgrade method, which will be used to upgrade the database if

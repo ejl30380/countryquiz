@@ -2,13 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/titleFragment">
+    app:startDestination="@id/quizFragment">
 
-    <fragment
-        android:id="@+id/titleFragment"
-        android:name="edu.uga.cs.countryquiz.TitleFragment"
-        android:label="Title Screen"
-        tools:layout="@layout/fragment_title" />
     <fragment
         android:id="@+id/quizFragment"
         android:name="edu.uga.cs.countryquiz.QuizFragment"
@@ -32,6 +27,6 @@
         tools:layout="@layout/fragment_results" >
         <action
             android:id="@+id/action_resultsFragment_to_quizFragment"
-            app:destination="@id/resultsFragment" />
+            app:destination="@id/quizFragment" />
     </fragment>
 </navigation>

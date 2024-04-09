@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +32,7 @@ public class QuizFragment extends Fragment {
     private Button startQuizButton;
     private Quiz quiz;
     private QuizViewModel quizViewModel;
+    private TextView textView;
 
     public QuizFragment() {
         // Required empty public constructor
@@ -45,6 +47,7 @@ public class QuizFragment extends Fragment {
 
         viewPager = view.findViewById(R.id.quizViewPager);
         startQuizButton = view.findViewById(R.id.startQuizButton);
+        textView = view.findViewById(R.id.textView);
 
         startQuizButton.setOnClickListener(v -> startQuiz());
         viewPager.setVisibility(View.GONE);
@@ -65,6 +68,7 @@ public class QuizFragment extends Fragment {
         viewPager.setAdapter(adapter);
         viewPager.setVisibility(View.VISIBLE);
         startQuizButton.setVisibility(View.GONE);
+        textView.setVisibility(View.GONE);
     }
 
     private class QuestionAdapter extends FragmentStateAdapter {

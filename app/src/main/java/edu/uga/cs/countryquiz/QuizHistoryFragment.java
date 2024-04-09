@@ -1,10 +1,13 @@
 package edu.uga.cs.countryquiz;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,10 +50,16 @@ public class QuizHistoryFragment extends Fragment {
         @Override
         protected ArrayList<Quiz> doInBackground(Void... voids) {
             QuizData quizData = new QuizData(context);
-            quizData.open();
-            ArrayList<Quiz> quizzes = quizData.retrieveAllQuiz(); // Fetch quizzes
-            quizData.close();
-            return quizzes; // Return the fetched quizzes
+            try {
+                quizData.open();
+                ArrayList<Quiz> quizzes = quizData.retrieveAllQuiz(); // Fetch quizzes
+                quizData.close();
+                return quizzes; // Return the fetched quizzes
+            } catch(SQLiteException e){
+                Log.d("loadQuizHistory", "doInBackground: SQLiteException");
+                ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+                return quizzes; // Return empty list
+            }
         }
 
         @Override

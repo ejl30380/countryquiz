@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Correct Answers: 0"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/percentageTextView"
@@ -20,13 +21,15 @@
         android:layout_height="wrap_content"
         android:text="Percentage: 0%"
         android:textSize="18sp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/retakeQuizButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Take Another Quiz"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="24dp"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
