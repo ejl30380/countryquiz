@@ -44,24 +44,31 @@ public class QuestionFragment extends Fragment {
         TextView questionText = view.findViewById(R.id.questionText);
         RadioGroup answersGroup = view.findViewById(R.id.answersGroup);
 
+        // set the question textview
         questionText.setText("What continent is " + question.getCountry() + " located in?");
         int j = 1;
-        // Dynamically add radio buttons for each answer
+        // Add radio buttons for each answer
         for (String answer : question.getAnswers()) {
             RadioButton radioButton = new RadioButton(getContext());
+            // set radio button text to be numbered with answer.
             radioButton.setText(String.format("%d. %s",j,answer));
             answersGroup.addView(radioButton);
+            // increment counter
             j++;
         }
 
+        //when an answer is clicked, check if the selected choice is correct and update score if so.
         answersGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton selectedRadioButton = group.findViewById(checkedId);
+            // need substring call here to get rid of the #. on the button text.
             if (selectedRadioButton.getText().toString().substring(3).equals(question.getCorrectAnswer())) {
                 quizViewModel.incrementScore();
             }
+            // set all buttons to false once user has selected answer.
             for (int i = 0; i < group.getChildCount(); i++) {
                 group.getChildAt(i).setEnabled(false);
             }
+            // navigate to results fragment once the last question has been answered.
             if (isLastQuestion()) {
                 navigateToResults();
             }
@@ -69,10 +76,11 @@ public class QuestionFragment extends Fragment {
         return view;
     }
 
+    // checks if the question is the last.
     private boolean isLastQuestion() {
         Bundle args = getArguments();
         if (args != null) {
-            int position = args.getInt("position", -1); // Assuming you pass the position
+            int position = args.getInt("position", -1);
             int totalQuestions = quizViewModel.getQuiz().getQuestions().size();
             return position == totalQuestions - 1;
         }
@@ -80,8 +88,9 @@ public class QuestionFragment extends Fragment {
     }
 
     private void navigateToResults() {
+        // create bundle for the results fragment
         Bundle bundle = new Bundle();
-        int score = quizViewModel.getScore(); // Assuming you have a method to get the score
+        int score = quizViewModel.getScore();
         int totalQuestions = quizViewModel.getQuiz().getQuestions().size();
 
         bundle.putInt("correctAnswers", score);

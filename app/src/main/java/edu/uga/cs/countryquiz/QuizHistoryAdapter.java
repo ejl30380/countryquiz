@@ -28,10 +28,11 @@ public class QuizHistoryAdapter extends RecyclerView.Adapter<QuizHistoryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // set the texts for the views in the recycler view
         Quiz quiz = quizList.get(position);
         Log.i("QuizHistAdaptor", quiz.getDate());
-        holder.quizDateTextView.setText(quiz.getDate()); // Format this date as needed
-        holder.quizResultTextView.setText(String.valueOf(quiz.getResult()) + "/6 Correct");
+        holder.quizDateTextView.setText(quiz.getDate());
+        holder.quizResultTextView.setText(quiz.getResult() + "/6 Correct");
     }
 
     @Override

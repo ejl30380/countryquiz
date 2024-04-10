@@ -2,6 +2,9 @@ package edu.uga.cs.countryquiz;
 
 import androidx.lifecycle.ViewModel;
 
+/**
+ * Quiz ViewModel, keeps data across fragments and between lifecycle calls.
+ */
 public class QuizViewModel extends ViewModel {
     private int score = 0;
     private Quiz quiz;

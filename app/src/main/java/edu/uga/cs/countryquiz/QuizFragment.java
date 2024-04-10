@@ -59,11 +59,13 @@ public class QuizFragment extends Fragment {
         ArrayList<Country> countries = getAllCountries();
         ArrayList<Question> questions = generateQuestions(countries);
 
+        // generate new quiz on quiz start
         quiz = new Quiz();
         quiz.setQuestions(questions);
         quizViewModel.setQuiz(quiz);
         quizViewModel.resetScore();
 
+        // update fragment to begin quiz UI
         QuestionAdapter adapter = new QuestionAdapter(this);
         viewPager.setAdapter(adapter);
         viewPager.setVisibility(View.VISIBLE);
@@ -80,7 +82,9 @@ public class QuizFragment extends Fragment {
         public Fragment createFragment(int position) {
             QuestionFragment questionFragment = new QuestionFragment();
             Bundle args = new Bundle();
+            // serialize the quiz question object to be sent in the bundle
             args.putSerializable("question", quiz.getQuestions().get(position));
+            // add the question position to the bundle
             args.putInt("position",position);
             questionFragment.setArguments(args);
             return questionFragment;
@@ -93,6 +97,7 @@ public class QuizFragment extends Fragment {
     }
 
 
+    // retrieves all countries from the database
     private ArrayList<Country> getAllCountries() {
         CountryData countryData = new CountryData(getContext());
         countryData.open();
@@ -101,6 +106,7 @@ public class QuizFragment extends Fragment {
         return countries;
     }
 
+    // creates questions to be asked during the quiz
     private ArrayList<Question> generateQuestions(List<Country> countries) {
         ArrayList<Question> questions = new ArrayList<>();
         Collections.shuffle(countries); // Shuffle the countries list to randomize
@@ -117,7 +123,7 @@ public class QuizFragment extends Fragment {
                     incorrectAnswers.add(answer); // Add incorrect answer until we have 2
                 }
             }
-
+            // add question to list
             questions.add(new Question(country.getCountry(), correctAnswer, incorrectAnswers));
         }
 

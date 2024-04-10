@@ -28,9 +28,6 @@ public class Question implements Serializable {
         return correctAnswer;
     }
 
-    public ArrayList<String> getIncorrectAnswers() {
-        return incorrectAnswers;
-    }
 
     public ArrayList<String> getAnswers() {
         return answers;

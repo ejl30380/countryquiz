@@ -40,14 +40,6 @@ public class Quiz implements Serializable {
         this.id = id;
     }
 
-    public void setDate(long date) {
-        this.date = date;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
-    }
-
     public long getId() {
         return id;
     }
@@ -63,10 +55,6 @@ public class Quiz implements Serializable {
 
     public int getResult() {
         return result;
-    }
-    public int answered(){
-        this.numAnswered++;
-        return numAnswered;
     }
 
 

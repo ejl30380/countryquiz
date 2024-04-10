@@ -36,6 +36,7 @@ public class ResultsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // make sure correct args were passed
         if (getArguments() != null) {
             correctAnswers = getArguments().getInt("correctAnswers");
             totalQuestions = getArguments().getInt("totalQuestions");
@@ -45,19 +46,23 @@ public class ResultsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_results, container, false);
+        // get views
         correctAnswersView = view.findViewById(R.id.correctAnswersTextView);
         percentageView = view.findViewById(R.id.percentageTextView);
         retakeQuizButton = view.findViewById(R.id.retakeQuizButton);
 
+        // display the results
         displayResults();
+        //lambda for taking another quiz
         retakeQuizButton.setOnClickListener(v -> retakeQuiz());
 
         return view;
     }
 
     private void displayResults() {
+        // set views to display results to user
         correctAnswersView.setText(String.format("Correct Answers: %d", correctAnswers));
         double percentage = ((double) correctAnswers / totalQuestions) * 100;
         percentageView.setText(String.format("Percentage: %.2f%%", percentage));
@@ -66,14 +71,16 @@ public class ResultsFragment extends Fragment {
     }
 
     private void saveQuizResults(int correctAnswers) {
-        // Assuming you have a method in your CountryData class to add quiz results
+        // get data ready to be saved
         QuizData quizData = new QuizData(getContext());
         Date currentTime = Calendar.getInstance().getTime();
         Log.i("ResultsFragment",currentTime.toString());
+        // async save quiz task call
         new SaveQuizTask(getContext()).execute(new Quiz(currentTime.getTime(), correctAnswers));
     }
 
     private void retakeQuiz() {
+        // use nav controller to navigate back to start of quiz
         NavHostFragment.findNavController(ResultsFragment.this)
                 .navigate(R.id.action_resultsFragment_to_quizFragment);
     }

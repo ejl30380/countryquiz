@@ -25,9 +25,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     // This is a reference to the only instance for the helper.
     private static QuizDBHelper helperInstance;
 
-    // A Create table SQL statement to create a table for job leads.
-    // Note that _id is an auto increment primary key, i.e. the database will
-    // automatically generate unique id values as keys.
     private static final String CREATE_COUNTRIES =
             "create table " + TABLE_COUNTRIES + " ("
                     + COUNTRIES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -41,25 +38,18 @@ public class QuizDBHelper extends SQLiteOpenHelper {
                     + QUIZZES_COLUMN_RESULT + " INT "
                     + ")";
 
-    // Note that the constructor is private!
-    // So, it can be called only from
-    // this class, in the getInstance method.
     private QuizDBHelper( Context context ) {
         super( context, DB_NAME, null, DB_VERSION );
     }
 
-    // Access method to the single instance of the class.
-    // It is synchronized, so that only one thread can executes this method, at a time.
+
     public static synchronized QuizDBHelper getInstance( Context context ) {
-        // check if the instance already exists and if not, create the instance
         if( helperInstance == null ) {
             helperInstance = new QuizDBHelper( context.getApplicationContext() );
         }
         return helperInstance;
     }
 
-    // We must override onCreate method, which will be used to create the database if
-    // it does not exist yet.
     @Override
     public void onCreate( SQLiteDatabase db ) {
         db.execSQL( CREATE_COUNTRIES );
@@ -68,9 +58,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
         Log.d( DEBUG_TAG, "Table " + TABLE_COUNTRIES + " created" );
     }
 
-    // We should override onUpgrade method, which will be used to upgrade the database if
-    // its version (DB_VERSION) has changed.  This will be done automatically by Android
-    // if the version will be bumped up, as we modify the database schema.
     @Override
     public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion ) {
         db.execSQL( "drop table if exists " + TABLE_QUIZZES );

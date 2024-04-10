@@ -27,8 +27,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Async Countries load from CSV
         Log.i("MainActivity", "Loading Countries");
         new LoadCountriesTask(this).execute();
+
+        // Setup nav bar
         BottomNavigationView navView = findViewById(R.id.bottom_navigation_menu);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
@@ -46,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             Log.i("LoadCountriesTask", "Loading Countries");
             try {
+                // open csv
                 InputStream inputStream = context.getAssets().open("country_continent.csv");
                 CSVReader csvReader = new CSVReader(new InputStreamReader(inputStream));
 
+                // iterate over lines of csv to add countries to database
                 CountryData countryData = new CountryData(context);
                 countryData.open();
                 String[] nextLine;
@@ -58,11 +64,12 @@ public class MainActivity extends AppCompatActivity {
                     String country = nextLine[0];
                     String continent = nextLine[1];
                     Country countryObj = new Country(country, continent);
-                    countryData.storeCountry(countryObj); // Make sure this method exists and works correctly
+                    countryData.storeCountry(countryObj);
                 }
+                // close readers + database connection
                 countryData.close();
-
                 csvReader.close();
+
                 Log.i("LoadCountriesTask", String.format("%d",numCountries));
             } catch (Exception e) {
                 Log.e("LoadCountriesTask", "Error loading countries from CSV", e);
